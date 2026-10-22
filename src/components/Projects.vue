@@ -14,8 +14,6 @@ const featuredProjects = [
     backendGithub: "https://github.com/Zaarah-Okkers/ModernTech-Backend.git",
     live: "https://hrflow-xg3y.onrender.com/index.html",
 
-    number: "01",
-
     login: {
       username: "admin@test.com",
       password: "Test1234!",
@@ -34,8 +32,6 @@ const featuredProjects = [
 
     github: "https://github.com/TaShepsta/E-Commerce-project.git",
     live: "https://e-commerce-project-ca0q.onrender.com",
-
-    number: "02",
 
     bookingNote: "A renter account is needed to make a booking.",
   },
@@ -104,6 +100,13 @@ const miniProjects = [
       </p>
     </div>
 
+    <div class="film-credit" aria-label="Selected web projects by Saajidah Abrahams">
+      <div class="film-credit-track" aria-hidden="true">
+        <span>SELECTED WORK</span><i></i><span>BUILT WITH CURIOSITY</span><i></i><span>WEB PROJECTS</span><i></i>
+        <span>SELECTED WORK</span><i></i><span>BUILT WITH CURIOSITY</span><i></i><span>WEB PROJECTS</span><i></i>
+      </div>
+    </div>
+
     <!-- =========================================
          FEATURED PROJECTS
     ========================================== -->
@@ -117,10 +120,6 @@ const miniProjects = [
       >
         <!-- PROJECT IMAGE -->
         <div class="featured-project-visual">
-          <div class="project-number">
-            {{ project.number }}
-          </div>
-
           <div class="browser-window">
             <div class="browser-top">
               <div class="browser-dots">
@@ -130,7 +129,7 @@ const miniProjects = [
               </div>
 
               <div class="browser-address">
-                <span>{{ project.title.toLowerCase() }}.app</span>
+                <span>{{ project.title }} · PROJECT STILL</span>
               </div>
 
               <div class="browser-space"></div>
@@ -150,14 +149,10 @@ const miniProjects = [
         <div class="featured-project-content">
           <div class="featured-label">
             <span></span>
-            Featured Project
+            Team project · selected work
           </div>
 
           <div class="featured-project-title-row">
-            <span class="featured-project-index">
-              {{ project.number }}
-            </span>
-
             <div>
               <p class="featured-project-category">
                 {{ project.category }}
@@ -290,32 +285,33 @@ const miniProjects = [
               :src="project.image"
               :alt="`${project.title} project screenshot`"
             />
+            <div class="project-art-overlay">
+              <div class="project-art-tags">
+                <span
+                  v-for="technology in project.technologies"
+                  :key="technology"
+                >
+                  {{ technology }}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- CONTENT -->
         <div class="project-card-content">
+          <span class="project-card-type">Individual practice</span>
           <h4>{{ project.title }}</h4>
 
           <p>
             {{ project.description }}
           </p>
 
-          <div class="project-technologies">
-            <span
-              v-for="technology in project.technologies"
-              :key="technology"
-            >
-              {{ technology }}
-            </span>
-          </div>
-
-          <div class="project-card-links">
+          <div class="mini-project-links">
             <a
               :href="project.github"
               target="_blank"
               rel="noopener noreferrer"
-              class="mini-project-link"
             >
               GitHub
             </a>
@@ -324,7 +320,6 @@ const miniProjects = [
               :href="project.live"
               target="_blank"
               rel="noopener noreferrer"
-              class="mini-project-link mini-project-live"
             >
               Live Demo
             </a>

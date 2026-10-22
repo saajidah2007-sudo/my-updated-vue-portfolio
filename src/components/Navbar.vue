@@ -51,24 +51,28 @@ onUnmounted(() => {
 <template>
   <header class="site-header">
     <nav class="navbar">
-      <!-- MOBILE MENU -->
+      <a class="wordmark" href="#home" @click="menuOpen = false" aria-label="Saajidah Abrahams, home">
+        <span class="wordmark-mark">S</span>
+        <span>Saajidah Abrahams</span>
+      </a>
+
       <button
         class="mobile-toggle"
         :class="{ open: menuOpen }"
         @click="menuOpen = !menuOpen"
         aria-label="Toggle navigation"
         :aria-expanded="menuOpen"
+        aria-controls="primary-navigation"
       >
-        <span></span>
         <span></span>
         <span></span>
       </button>
 
-      <!-- NAVIGATION -->
-      <ul class="nav-links" :class="{ open: menuOpen }">
+      <ul id="primary-navigation" class="nav-links" :class="{ open: menuOpen }">
         <li v-for="section in sections" :key="section.id">
           <button
             :class="{ active: activeSection === section.id }"
+            :aria-current="activeSection === section.id ? 'location' : undefined"
             @click="scrollToSection(section.id)"
           >
             {{ section.label }}

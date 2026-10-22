@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from "vue";
 
-import "./style.css";
+import "./assets/redesign.css";
 import Navbar from "./components/Navbar.vue";
 import Hero from "./components/Hero.vue";
 import About from "./components/About.vue";
@@ -11,8 +11,8 @@ import Journey from "./components/Journey.vue";
 import Contact from "./components/Contact.vue";
 import Footer from "./components/Footer.vue";
 
-const loading = ref(true);
 const showBackToTop = ref(false);
+let revealObserver;
 
 const handleScroll = () => {
   showBackToTop.value = window.scrollY > 500;
@@ -26,33 +26,39 @@ const scrollToTop = () => {
 };
 
 onMounted(() => {
-  setTimeout(() => {
-    loading.value = false;
-  }, 1800);
-
   window.addEventListener("scroll", handleScroll);
+
+  if (
+    "IntersectionObserver" in window &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    document.documentElement.classList.add("reveal-ready");
+    revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 },
+    );
+
+    document.querySelectorAll("main > section:not(.hero)").forEach((section) => {
+      revealObserver.observe(section);
+    });
+  }
 });
 
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
+  revealObserver?.disconnect();
+  document.documentElement.classList.remove("reveal-ready");
 });
 </script>
 
 <template>
-  <Transition name="loader">
-    <div v-if="loading" class="loader-wrapper">
-      <div class="loader-ring"></div>
-
-      <div class="loader-content">
-        <span class="loader-symbol">✦</span>
-
-        <h1>WELCOME</h1>
-
-        <p>Loading portfolio...</p>
-      </div>
-    </div>
-  </Transition>
-
   <div class="portfolio">
     <Navbar />
 

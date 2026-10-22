@@ -1,86 +1,43 @@
 <script setup>
-import { ref } from "vue";
-
-const skills = [
-  {
-    name: "HTML",
-    level: 50,
-  },
-  {
-    name: "CSS",
-    level: 40,
-  },
-  {
-    name: "JavaScript",
-    level: 50,
-  },
-  {
-    name: "Vue.js",
-    level: 40,
-  },
-  {
-    name: "Git & GitHub",
-    level: 60,
-  },
-  {
-    name: "Node.js",
-    level: 35,
-  },
+const skillGroups = [
+  { category: "Frontend", items: ["HTML", "CSS", "JavaScript", "Vue.js", "Bootstrap"] },
+  { category: "Backend", items: ["Node.js", "Express.js", "Python"] },
+  { category: "Database", items: ["MySQL"] },
+  { category: "Workflow", items: ["Git", "GitHub"] },
 ];
-
-const activeSkill = ref(null);
 </script>
 
 <template>
   <section id="skills" class="skills-section">
     <div class="section-heading skills-heading">
-      <span class="skills-eyebrow">MY SKILLS</span>
+      <span class="skills-eyebrow">TOOLS IN THE KIT</span>
 
       <h2>
-        What I'm
-        <span>Learning</span>
+        A growing
+        <span>toolkit.</span>
       </h2>
 
       <p>
-        These are some of the technologies I've been working with while
-        learning and building projects.
+        Technologies I've used while learning, collaborating, and building
+        projects — no scorecards, just tools put to work.
       </p>
     </div>
 
     <div class="skills-container">
       <article
-        v-for="skill in skills"
-        :key="skill.name"
+        v-for="group in skillGroups"
+        :key="group.category"
         class="skill-card"
-        :class="{ active: activeSkill === skill.name }"
-        @mouseenter="activeSkill = skill.name"
-        @mouseleave="activeSkill = null"
       >
         <div class="skill-card-top">
-          <h3>{{ skill.name }}</h3>
-
-          <span class="skill-percent">
-            {{ skill.level }}%
-          </span>
+          <h3>{{ group.category }}</h3>
+          <span class="skill-mark" aria-hidden="true"></span>
         </div>
 
-        <div class="progress">
-          <div
-            class="progress-bar"
-            :class="{ highlighted: activeSkill === skill.name }"
-            :style="{ width: `${skill.level}%` }"
-          ></div>
-        </div>
-
-        <p class="skill-status">
-          Currently learning
-        </p>
+        <ul class="skill-list">
+          <li v-for="item in group.items" :key="item">{{ item }}</li>
+        </ul>
       </article>
     </div>
-
-    <p class="skills-note">
-      The percentages reflect my current confidence with each skill and where
-      I am in my learning journey.
-    </p>
   </section>
 </template>
