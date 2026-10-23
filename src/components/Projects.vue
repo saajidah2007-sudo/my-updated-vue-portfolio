@@ -102,8 +102,12 @@ const miniProjects = [
 
     <div class="film-credit" aria-label="Selected web projects by Saajidah Abrahams">
       <div class="film-credit-track" aria-hidden="true">
-        <span>SELECTED WORK</span><i></i><span>BUILT WITH CURIOSITY</span><i></i><span>WEB PROJECTS</span><i></i>
-        <span>SELECTED WORK</span><i></i><span>BUILT WITH CURIOSITY</span><i></i><span>WEB PROJECTS</span><i></i>
+        <span>SELECTED WORK</span><i></i><span>HRFLOW · SCENE 01</span><i></i>
+        <span>RENTOSPHERE · SCENE 02</span><i></i><span>BUILT WITH CURIOSITY</span><i></i>
+        <span>FRONT-END &amp; FULL-STACK</span><i></i><span>SMALL PROJECTS · BIG IDEAS</span><i></i>
+        <span>SELECTED WORK</span><i></i><span>HRFLOW · SCENE 01</span><i></i>
+        <span>RENTOSPHERE · SCENE 02</span><i></i><span>BUILT WITH CURIOSITY</span><i></i>
+        <span>FRONT-END &amp; FULL-STACK</span><i></i><span>SMALL PROJECTS · BIG IDEAS</span><i></i>
       </div>
     </div>
 

@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted, ref } from "vue";
 
 import "./assets/redesign.css";
+import FilmLoader from "./components/FilmLoader.vue";
 import Navbar from "./components/Navbar.vue";
 import Hero from "./components/Hero.vue";
 import About from "./components/About.vue";
@@ -12,7 +13,9 @@ import Contact from "./components/Contact.vue";
 import Footer from "./components/Footer.vue";
 
 const showBackToTop = ref(false);
+const isLoading = ref(true);
 let revealObserver;
+let loadingTimer;
 
 const handleScroll = () => {
   showBackToTop.value = window.scrollY > 500;
@@ -26,6 +29,16 @@ const scrollToTop = () => {
 };
 
 onMounted(() => {
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  loadingTimer = window.setTimeout(
+    () => {
+      isLoading.value = false;
+    },
+    prefersReducedMotion ? 100 : 450,
+  );
+
   window.addEventListener("scroll", handleScroll);
 
   if (
@@ -52,6 +65,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  window.clearTimeout(loadingTimer);
   window.removeEventListener("scroll", handleScroll);
   revealObserver?.disconnect();
   document.documentElement.classList.remove("reveal-ready");
@@ -60,6 +74,10 @@ onUnmounted(() => {
 
 <template>
   <div class="portfolio">
+    <Transition name="film-loader" appear>
+      <FilmLoader v-if="isLoading" />
+    </Transition>
+
     <Navbar />
 
     <main>
