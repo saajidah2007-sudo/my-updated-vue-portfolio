@@ -169,7 +169,7 @@ const unlockPageScroll = () => {
 
 <template>
   <div class="portfolio">
-    <Transition name="film-loader" appear @after-leave="unlockPageScroll">
+    <Transition name="film-loader" @after-leave="unlockPageScroll">
       <FilmLoader v-if="isLoading" />
     </Transition>
 
