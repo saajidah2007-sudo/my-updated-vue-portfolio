@@ -84,7 +84,9 @@ const showRelativeScene = (offset) => {
   <section id="about" class="about-section">
     <div class="section-heading">
       <span class="about-section-label">
-        <span class="about-sticker" aria-hidden="true">✳</span>
+        <span class="about-sticker" aria-hidden="true">
+          <span class="about-sticker-icon">▶</span>
+        </span>
         ABOUT ME · FIVE FRAMES
       </span>
       <h2>A story still in the making</h2>

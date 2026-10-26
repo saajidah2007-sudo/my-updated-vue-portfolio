@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from "vue";
+import { nextTick, onBeforeMount, onMounted, onUnmounted, ref } from "vue";
 
 import "./assets/redesign.css";
 import FilmLoader from "./components/FilmLoader.vue";
@@ -15,10 +15,107 @@ import Footer from "./components/Footer.vue";
 const showBackToTop = ref(false);
 const isLoading = ref(true);
 let revealObserver;
-let loadingTimer;
+let isMounted = false;
+
+onBeforeMount(() => {
+  document.documentElement.classList.add("portfolio-loading");
+});
 
 const handleScroll = () => {
   showBackToTop.value = window.scrollY > 500;
+};
+
+const waitForWindowLoad = () => {
+  if (document.readyState === "complete") {
+    return Promise.resolve();
+  }
+
+  return new Promise((resolve) => {
+    window.addEventListener("load", resolve, { once: true });
+  });
+};
+
+const waitForFonts = async () => {
+  if (!document.fonts?.ready) {
+    return;
+  }
+
+  try {
+    await document.fonts.ready;
+  } catch (error) {
+    console.error("Portfolio fonts could not finish loading.", error);
+  }
+};
+
+const waitForImage = async (image) => {
+  if (!image) {
+    return;
+  }
+
+  if (!image.complete) {
+    await new Promise((resolve) => {
+      image.addEventListener("load", resolve, { once: true });
+      image.addEventListener("error", resolve, { once: true });
+    });
+  }
+
+  if (!image.naturalWidth) {
+    console.error("A hero image could not be loaded.", image.currentSrc || image.src);
+    return;
+  }
+
+  if (typeof image.decode === "function") {
+    try {
+      await image.decode();
+    } catch (error) {
+      console.error("A hero image could not be decoded.", error);
+    }
+  }
+};
+
+const waitForHeroEntrance = async () => {
+  await new Promise((resolve) => {
+    requestAnimationFrame(resolve);
+  });
+
+  const hero = document.querySelector(".hero");
+  if (!hero) {
+    return;
+  }
+
+  const animations = [...hero.querySelectorAll(".hero-info, .hero-image-wrapper")]
+    .flatMap((element) => element.getAnimations())
+    .filter((animation) => Number.isFinite(animation.effect?.getTiming().iterations));
+
+  await Promise.all(
+    animations.map(
+      (animation) =>
+        new Promise((resolve) => {
+          if (animation.playState === "finished" || animation.playState === "idle") {
+            resolve();
+            return;
+          }
+
+          animation.addEventListener("finish", resolve, { once: true });
+          animation.addEventListener("cancel", resolve, { once: true });
+        }),
+    ),
+  );
+};
+
+const waitForPortfolioReady = async () => {
+  await nextTick();
+
+  await Promise.all([
+    waitForWindowLoad(),
+    waitForFonts(),
+    waitForImage(document.querySelector(".hero img")),
+    waitForHeroEntrance(),
+  ]);
+
+  if (isMounted) {
+    isLoading.value = false;
+  }
 };
 
 const scrollToTop = () => {
@@ -29,15 +126,8 @@ const scrollToTop = () => {
 };
 
 onMounted(() => {
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
-  loadingTimer = window.setTimeout(
-    () => {
-      isLoading.value = false;
-    },
-    prefersReducedMotion ? 100 : 450,
-  );
+  isMounted = true;
+  void waitForPortfolioReady();
 
   window.addEventListener("scroll", handleScroll);
 
@@ -65,16 +155,21 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  window.clearTimeout(loadingTimer);
+  isMounted = false;
   window.removeEventListener("scroll", handleScroll);
   revealObserver?.disconnect();
   document.documentElement.classList.remove("reveal-ready");
+  document.documentElement.classList.remove("portfolio-loading");
 });
+
+const unlockPageScroll = () => {
+  document.documentElement.classList.remove("portfolio-loading");
+};
 </script>
 
 <template>
   <div class="portfolio">
-    <Transition name="film-loader" appear>
+    <Transition name="film-loader" appear @after-leave="unlockPageScroll">
       <FilmLoader v-if="isLoading" />
     </Transition>
 
