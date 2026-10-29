@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 const featuredProjects = [
   {
     title: "HRFlow",
@@ -24,7 +24,7 @@ const featuredProjects = [
     title: "RentoSphere",
     category: "Rental Marketplace",
     description:
-      "RentoSphere was a group project I worked on with Matthew, Lisekho, and Purrity. We built a rental marketplace where users can list items, browse available products, make rental requests, and manage their bookings. This project also gave me more experience working with Vue, Node.js, Express, and MySQL as part of a team.",
+      "RentoSphere was a group project I worked on with Matthew, Lisekho, and Purrity. We built a rental marketplace where users can list items, browse products, make rental requests, and manage bookings. It also includes owner earnings dashboards, booking routes, and Nodemailer email notifications. This project gave me more experience working with Vue, Node.js, Express, and MySQL as part of a team.",
 
     image: "https://i.ibb.co/W4LrDP9x/Screenshot-2026-09-23-093017.png",
 
@@ -100,21 +100,6 @@ const miniProjects = [
       </p>
     </div>
 
-    <div class="film-credit" aria-label="Selected web projects by Saajidah Abrahams">
-      <div class="film-credit-track" aria-hidden="true">
-        <span>SELECTED WORK</span><i></i><span>HRFLOW · SCENE 01</span><i></i>
-        <span>RENTOSPHERE · SCENE 02</span><i></i><span>BUILT WITH CURIOSITY</span><i></i>
-        <span>FRONT-END &amp; FULL-STACK</span><i></i><span>SMALL PROJECTS · BIG IDEAS</span><i></i>
-        <span>SELECTED WORK</span><i></i><span>HRFLOW · SCENE 01</span><i></i>
-        <span>RENTOSPHERE · SCENE 02</span><i></i><span>BUILT WITH CURIOSITY</span><i></i>
-        <span>FRONT-END &amp; FULL-STACK</span><i></i><span>SMALL PROJECTS · BIG IDEAS</span><i></i>
-      </div>
-    </div>
-
-    <!-- =========================================
-         FEATURED PROJECTS
-    ========================================== -->
-
     <div class="featured-projects">
       <article
         v-for="(project, index) in featuredProjects"
@@ -122,7 +107,6 @@ const miniProjects = [
         class="featured-project-card"
         :class="{ 'featured-project-card-reverse': index % 2 !== 0 }"
       >
-        <!-- PROJECT IMAGE -->
         <div class="featured-project-visual">
           <div class="browser-window">
             <div class="browser-top">
@@ -133,7 +117,7 @@ const miniProjects = [
               </div>
 
               <div class="browser-address">
-                <span>{{ project.title }} · PROJECT STILL</span>
+                <span>{{ project.title }} · PROJECT PREVIEW</span>
               </div>
 
               <div class="browser-space"></div>
@@ -149,11 +133,10 @@ const miniProjects = [
           </div>
         </div>
 
-        <!-- PROJECT DETAILS -->
         <div class="featured-project-content">
           <div class="featured-label">
             <span></span>
-            Team project · selected work
+            Team project · Pokédex highlight
           </div>
 
           <div class="featured-project-title-row">
@@ -170,7 +153,6 @@ const miniProjects = [
             {{ project.description }}
           </p>
 
-          <!-- TECHNOLOGIES -->
           <div class="featured-technologies">
             <span
               v-for="technology in project.technologies"
@@ -180,7 +162,6 @@ const miniProjects = [
             </span>
           </div>
 
-          <!-- HRFLOW LOGIN -->
           <div v-if="project.login" class="project-info-box login-box">
             <div class="info-box-heading">Demo Login</div>
 
@@ -197,7 +178,6 @@ const miniProjects = [
             </div>
           </div>
 
-          <!-- RENTOSPHERE BOOKING NOTE -->
           <div
             v-if="project.bookingNote"
             class="project-info-box booking-box"
@@ -207,7 +187,6 @@ const miniProjects = [
             <p>{{ project.bookingNote }}</p>
           </div>
 
-          <!-- LINKS -->
           <div class="featured-project-links">
             <template v-if="project.frontendGithub">
               <a
@@ -253,20 +232,16 @@ const miniProjects = [
       </article>
     </div>
 
-    <!-- =========================================
-         SMALLER PROJECTS
-    ========================================== -->
-
     <div class="other-projects-heading">
       <div>
-        <span class="section-eyebrow">MORE PROJECTS</span>
+        <span class="section-eyebrow">MORE POKÉDEX ENTRIES</span>
 
         <h3>Some Earlier Work</h3>
       </div>
 
       <p>
-        A few of the smaller projects I worked on while building my
-        foundation in HTML, CSS, and Bootstrap.
+        A few smaller builds from my journey so far. Each one is a new region
+        to explore and another chance to level up my skills.
       </p>
     </div>
 
@@ -276,8 +251,7 @@ const miniProjects = [
         :key="project.title"
         class="project-card"
       >
-        <!-- IMAGE -->
-        <div class="project-card-image">
+        <div v-if="project.image" class="project-card-image">
           <div class="mini-browser-bar">
             <span></span>
             <span></span>
@@ -302,17 +276,17 @@ const miniProjects = [
           </div>
         </div>
 
-        <!-- CONTENT -->
         <div class="project-card-content">
-          <span class="project-card-type">Individual practice</span>
+          <span class="project-card-type">{{ project.type || "Individual practice" }}</span>
           <h4>{{ project.title }}</h4>
 
           <p>
             {{ project.description }}
           </p>
 
-          <div class="mini-project-links">
+          <div v-if="project.github || project.live" class="mini-project-links">
             <a
+              v-if="project.github"
               :href="project.github"
               target="_blank"
               rel="noopener noreferrer"
@@ -321,6 +295,7 @@ const miniProjects = [
             </a>
 
             <a
+              v-if="project.live"
               :href="project.live"
               target="_blank"
               rel="noopener noreferrer"

@@ -17,7 +17,9 @@ const scrollToSection = (id) => {
   menuOpen.value = false;
 
   document.getElementById(id)?.scrollIntoView({
-    behavior: "smooth",
+    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? "auto"
+      : "smooth",
   });
 };
 
@@ -53,14 +55,15 @@ onUnmounted(() => {
     <nav class="navbar">
       <a class="wordmark" href="#home" @click="menuOpen = false" aria-label="Saajidah Abrahams, home">
         <span class="wordmark-mark">S</span>
-        <span>Saajidah Abrahams</span>
+        <span>SAAJIDAH.DEV</span>
       </a>
 
       <button
+        type="button"
         class="mobile-toggle"
         :class="{ open: menuOpen }"
         @click="menuOpen = !menuOpen"
-        aria-label="Toggle navigation"
+        :aria-label="menuOpen ? 'Close navigation menu' : 'Open navigation menu'"
         :aria-expanded="menuOpen"
         aria-controls="primary-navigation"
       >
