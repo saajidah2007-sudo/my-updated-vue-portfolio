@@ -27,16 +27,16 @@ const visibleSkillGroups = computed(() => (
 <template>
   <section id="skills" class="skills-section">
     <div class="section-heading skills-heading">
-      <span class="skills-eyebrow">SKILL INVENTORY · TOOLS IN THE KIT</span>
+      <span class="skills-eyebrow">ABILITIES · TECHNICAL SKILLS</span>
 
       <h2>
-        A growing
-        <span>toolkit.</span>
+        Technical
+        <span>abilities.</span>
       </h2>
 
       <p>
-        Technologies I've used while learning, collaborating, and building
-        projects — no scorecards, just tools put to work.
+        Technologies and tools I’ve used while learning, collaborating, and
+        building projects.
       </p>
     </div>
 

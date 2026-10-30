@@ -50,7 +50,7 @@ const handleTransmissionSubmit = async (event) => {
         <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
             
             <!-- Brand Logo -->
-            <a href="#" class="flex items-center gap-3 group">
+            <a href="#home" @click="menuOpen = false" class="flex items-center gap-3 group" aria-label="Saajidah Abrahams, home">
                 <div class="w-8 h-8 rounded-full bg-gradient-to-b from-red-500 to-white border-2 border-black relative flex items-center justify-center pokeball-glow">
                     <div class="w-2.5 h-2.5 bg-white border-2 border-black rounded-full"></div>
                 </div>
@@ -58,35 +58,36 @@ const handleTransmissionSubmit = async (event) => {
             </a>
 
             <!-- Navigation Links -->
-            <nav class="hidden md:flex items-center gap-8 font-semibold text-sm text-slate-400">
-                <a href="#about" class="hover:text-electricYellow transition-colors">About</a>
-                <a href="#skills" class="hover:text-electricYellow transition-colors">Skills</a>
-                <a href="#projects" class="hover:text-electricYellow transition-colors">Projects</a>
-                <a href="#journey" class="hover:text-electricYellow transition-colors">Journey</a>
-                <a href="#certifications" class="hover:text-electricYellow transition-colors">Certifications</a>
+            <nav aria-label="Main navigation" class="hidden md:flex items-center gap-3 font-semibold text-xs text-slate-400">
+                <a href="#about" class="hover:text-electricYellow transition-colors">Trainer Profile</a>
+                <a href="#skills" class="hover:text-electricYellow transition-colors">Abilities</a>
+                <a href="#projects" class="hover:text-electricYellow transition-colors">Pokédex</a>
+                <a href="#journey" class="hover:text-electricYellow transition-colors">Trainer Journey</a>
+                <a href="#certifications" class="hover:text-electricYellow transition-colors">Achievements</a>
                 <a href="#contact" class="hover:text-electricYellow transition-colors">Contact</a>
             </nav>
 
             <!-- Mobile Menu Button -->
             <div class="flex items-center gap-3">
-                <button id="mobile-drawer-btn" class="md:hidden text-white text-xl p-1 hover:text-electricYellow" @click="toggleMobileDrawer" :aria-expanded="menuOpen" aria-controls="mobile-drawer">
-                    <i class="fa-solid fa-bars"></i>
+                <button id="mobile-drawer-btn" type="button" class="md:hidden flex items-center gap-2 text-white text-xs font-mono p-2 hover:text-electricYellow" @click="toggleMobileDrawer" :aria-expanded="menuOpen" aria-controls="mobile-drawer" :aria-label="menuOpen ? 'Close navigation menu' : 'Open navigation menu'">
+                    <span>{{ menuOpen ? "CLOSE" : "MENU" }}</span>
+                    <i :class="menuOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Drawer -->
-        <div id="mobile-drawer" :class="{ hidden: !menuOpen }" class="md:hidden bg-panel border-b border-panelBorder px-6 py-6 font-mono text-sm space-y-4">
-            <a href="#about" class="block text-slate-300 hover:text-electricYellow mobile-nav-link" @click="menuOpen = false">01. Trainer Profile</a>
-            <a href="#skills" class="block text-slate-300 hover:text-electricYellow mobile-nav-link" @click="menuOpen = false">02. Ability Index</a>
-            <a href="#projects" class="block text-slate-300 hover:text-electricYellow mobile-nav-link" @click="menuOpen = false">03. Regions Explored</a>
-            <a href="#journey" class="block text-slate-300 hover:text-electricYellow mobile-nav-link" @click="menuOpen = false">04. Developer Journey</a>
-            <a href="#certifications" class="block text-slate-300 hover:text-electricYellow mobile-nav-link" @click="menuOpen = false">05. Badges & Credentials</a>
-            <a href="#contact" class="block text-electricYellow font-bold mobile-nav-link" @click="menuOpen = false">06. Transmit Message</a>
-        </div>
+        <nav v-if="menuOpen" id="mobile-drawer" aria-label="Mobile navigation" class="md:hidden bg-panel border-b border-panelBorder px-6 py-6 font-mono text-sm space-y-4">
+            <a href="#about" class="block text-slate-300 hover:text-electricYellow mobile-nav-link" @click="menuOpen = false">Trainer Profile</a>
+            <a href="#skills" class="block text-slate-300 hover:text-electricYellow mobile-nav-link" @click="menuOpen = false">Abilities</a>
+            <a href="#projects" class="block text-slate-300 hover:text-electricYellow mobile-nav-link" @click="menuOpen = false">Pokédex</a>
+            <a href="#journey" class="block text-slate-300 hover:text-electricYellow mobile-nav-link" @click="menuOpen = false">Trainer Journey</a>
+            <a href="#certifications" class="block text-slate-300 hover:text-electricYellow mobile-nav-link" @click="menuOpen = false">Achievements</a>
+            <a href="#contact" class="block text-electricYellow font-bold mobile-nav-link" @click="menuOpen = false">Contact</a>
+        </nav>
     </header>
 
-    <!-- HERO SECTION (Starting Area / Pallet Town) -->
+    <!-- HERO SECTION (Developer introduction) -->
     <section id="home" class="relative py-16 md:py-28 bg-gradient-to-b from-midnight via-midnight/90 to-forest overflow-hidden border-b border-panelBorder">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
@@ -120,7 +121,7 @@ const handleTransmissionSubmit = async (event) => {
                 <div class="flex flex-wrap items-center gap-4 pt-2">
                     <a href="#projects" class="px-6 py-3.5 rounded-lg bg-electricYellow text-midnight font-pixel text-xs font-bold hover:bg-yellow-300 transition-all border-b-4 border-electricDarkYellow flex items-center gap-3 shadow-lg hover:-translate-y-0.5">
                         <i class="fa-solid fa-compass"></i>
-                        <span>EXPLORE REGIONS</span>
+                        <span>VIEW MY POKÉDEX</span>
                     </a>
                     
                     <a href="#contact" class="px-6 py-3.5 rounded-lg bg-transparent text-white border-2 border-skyBlue font-pixel text-xs hover:bg-skyBlue/10 transition-all shadow-md">
@@ -136,14 +137,14 @@ const handleTransmissionSubmit = async (event) => {
                     
                     <div class="flex justify-between items-center mb-4 pb-2 border-b border-panelBorder font-pixel text-[10px] text-slate-400">
                         <span class="text-electricYellow">TRAINER CARD</span>
-                        <span class="trainer-card-index"><span class="pokeball-icon" aria-hidden="true"></span> NO. 001</span>
+                        <span class="trainer-card-index"><span class="pokeball-icon" aria-hidden="true"></span> TRAINER PROFILE</span>
                     </div>
 
-                    <div class="w-40 h-40 mx-auto mb-5 rounded-full bg-slate-900 border-4 border-skyBlue flex items-center justify-center relative overflow-hidden shadow-blue-glow">
+                    <div class="w-40 h-40 mx-auto mb-3 rounded-full bg-slate-900 border-4 border-skyBlue flex items-center justify-center relative overflow-hidden shadow-blue-glow">
                         <img :src="heroPortrait" alt="Saajidah Abrahams" class="trainer-portrait">
-                        <div class="absolute bottom-1 bg-electricYellow text-midnight font-pixel text-[8px] px-2 py-0.5 rounded-full font-bold">
-                            LVL 2026
-                        </div>
+                    </div>
+                    <div class="flex justify-center mb-4">
+                        <span class="bg-electricYellow text-midnight font-pixel text-[8px] px-3 py-2 rounded-full font-bold text-center">JUNIOR WEB DEVELOPER</span>
                     </div>
 
                     <div class="text-center space-y-2">
@@ -151,7 +152,7 @@ const handleTransmissionSubmit = async (event) => {
                         <p class="font-mono text-xs text-skyBlue"><i class="fa-solid fa-compass mr-1" aria-hidden="true"></i> Cape Town, South Africa</p>
                         <div class="pt-3 border-t border-panelBorder flex justify-around font-mono text-xs text-slate-300">
                             <div>
-                                <span class="block text-[10px] text-slate-500">CLASS</span>
+                                <span class="block text-[10px] text-slate-500">ROLE</span>
                                 <span class="font-bold text-grassGreen">Developer</span>
                             </div>
                             <div>
@@ -174,18 +175,18 @@ const handleTransmissionSubmit = async (event) => {
         </a>
     </section>
 
-    <!-- ABOUT SECTION (Meet the Developer / Pokédex Profile) -->
+    <!-- ABOUT SECTION (Trainer Profile) -->
     <About />
 
-    <!-- SKILLS SECTION (Pokédex of Abilities) -->
+    <!-- SKILLS SECTION (Abilities) -->
     <Skills />
 
-    <!-- PROJECTS SECTION (Regions Explored) -->
+    <!-- PROJECTS SECTION (Pokédex) -->
     <Projects />
     <Journey />
     <Certifications />
 
-    <!-- CONTACT SECTION (Final Destination) -->
+    <!-- CONTACT SECTION -->
     <Contact />
 
     <!-- FOOTER -->

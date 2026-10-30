@@ -20,8 +20,8 @@ const certifications = [
 <template>
   <section id="certifications" class="certifications-section" aria-labelledby="certifications-title">
     <header class="certifications-heading">
-      <span class="certifications-eyebrow">[CERTIFICATIONS &amp; BADGES]</span>
-      <h2 id="certifications-title">Achievement Journal</h2>
+      <span class="certifications-eyebrow">ACHIEVEMENTS</span>
+      <h2 id="certifications-title">Certifications</h2>
       <p>Verified learning milestones from Cisco Networking Academy.</p>
     </header>
 
@@ -30,7 +30,7 @@ const certifications = [
         <div class="certification-card-heading">
           <div class="gym-medal" aria-hidden="true">
             <span class="gym-medal-icon">{{ certification.icon }}</span>
-            <span class="gym-medal-tag">BADGE</span>
+            <span class="gym-medal-tag">CISCO</span>
           </div>
 
           <div class="certification-title-group">
@@ -42,7 +42,7 @@ const certifications = [
         <p class="certification-description">{{ certification.description }}</p>
 
         <div class="certification-card-footer">
-          <span class="certification-status"><span aria-hidden="true">✓</span> Verified Cisco badge</span>
+          <span class="certification-status"><span aria-hidden="true">✓</span> Cisco certification</span>
           <a :href="certification.link" target="_blank" rel="noopener noreferrer">
             View certificate <span class="certification-link-arrow" aria-hidden="true">▶</span>
           </a>

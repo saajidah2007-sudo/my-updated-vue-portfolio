@@ -86,7 +86,7 @@ const miniProjects = [
   <section id="projects" class="projects-section">
     <!-- SECTION INTRO -->
     <div class="section-heading projects-heading">
-      <span class="section-eyebrow">MY PROJECTS</span>
+      <span class="section-eyebrow">POKÉDEX · PROJECTS</span>
 
       <h2>
         What I've
@@ -136,7 +136,7 @@ const miniProjects = [
         <div class="featured-project-content">
           <div class="featured-label">
             <span></span>
-            Team project · Pokédex highlight
+            Team project
           </div>
 
           <div class="featured-project-title-row">
@@ -234,14 +234,14 @@ const miniProjects = [
 
     <div class="other-projects-heading">
       <div>
-        <span class="section-eyebrow">MORE POKÉDEX ENTRIES</span>
+        <span class="section-eyebrow">POKÉDEX · MORE PROJECTS</span>
 
         <h3>Some Earlier Work</h3>
       </div>
 
       <p>
-        A few smaller builds from my journey so far. Each one is a new region
-        to explore and another chance to level up my skills.
+        Smaller projects from my learning journey, each giving me a chance to
+        practise web development and build on my skills.
       </p>
     </div>
 

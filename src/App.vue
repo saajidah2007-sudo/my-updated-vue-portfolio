@@ -6,14 +6,7 @@ import "./assets/pixel-theme.css";
 
 const showBackToTop = ref(false);
 const isTeleporting = ref(false);
-const showIntro = ref(true);
-const introCharging = ref(true);
-const introOpening = ref(false);
-const introFlash = ref(false);
 let teleportTimer;
-let introStartTimer;
-let introFlashTimer;
-let introCloseTimer;
 
 const handleScroll = () => {
   showBackToTop.value = window.scrollY > 500;
@@ -41,75 +34,18 @@ const teleportToTop = () => {
   }, teleportDuration);
 };
 
-const finishIntro = () => {
-  showIntro.value = false;
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
-  document.documentElement.classList.remove("portfolio-loading");
-  document.documentElement.classList.add("opening-complete");
-};
-
-const openIntro = () => {
-  if (!showIntro.value || introOpening.value) return;
-  window.clearTimeout(introStartTimer);
-  introCharging.value = false;
-  introOpening.value = true;
-  introFlashTimer = window.setTimeout(() => { introFlash.value = true; }, 100);
-  introCloseTimer = window.setTimeout(finishIntro, 850);
-};
-
-const skipIntro = () => {
-  window.clearTimeout(introStartTimer);
-  window.clearTimeout(introFlashTimer);
-  window.clearTimeout(introCloseTimer);
-  finishIntro();
-};
-
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    skipIntro();
-  } else {
-    document.documentElement.classList.add("portfolio-loading");
-    introStartTimer = window.setTimeout(openIntro, 1100);
-  }
 });
 
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
   window.clearTimeout(teleportTimer);
-  window.clearTimeout(introStartTimer);
-  window.clearTimeout(introFlashTimer);
-  window.clearTimeout(introCloseTimer);
-  document.documentElement.classList.remove("portfolio-loading");
 });
 </script>
 
 <template>
   <div class="portfolio">
-    <Transition name="pokeball-intro">
-      <div
-        v-if="showIntro"
-        id="pokeball-intro-overlay"
-        :class="{
-          'pokeball-charging': introCharging,
-          'pokeball-open': introOpening,
-        }"
-        role="dialog"
-        aria-label="Poké Ball page intro"
-        aria-modal="true"
-      >
-        <div class="pokeball-shell pokeball-top" aria-hidden="true"></div>
-        <div class="pokeball-shell pokeball-bottom" aria-hidden="true"></div>
-        <div class="flash-reveal-overlay" :class="{ 'flash-active': introFlash }" aria-hidden="true"></div>
-        <button class="pokeball-center-btn" type="button" @click="openIntro" aria-label="Open the Poké Ball intro">
-          <span class="pokeball-inner-dot"></span>
-        </button>
-        <p class="pokeball-status-text" aria-live="polite">{{ introOpening ? "Welcome, Trainer!" : "Loading your adventure..." }}</p>
-        <button class="skip-intro-btn" type="button" @click="skipIntro">Skip intro</button>
-      </div>
-    </Transition>
-
     <RouterView />
 
     <Transition name="fade">

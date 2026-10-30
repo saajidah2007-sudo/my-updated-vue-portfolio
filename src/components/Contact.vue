@@ -1,7 +1,11 @@
+<script setup>
+import psyduckArtwork from "../assets/psyduck.png";
+</script>
+
 <template>
   <section id="contact" class="contact-section">
     <div class="section-heading">
-      <span>NEW ADVENTURE · CONTACT</span>
+      <span>CONTACT · LET’S CONNECT</span>
       <h2>Let's connect</h2>
     </div>
 
@@ -11,6 +15,7 @@
     </p>
 
     <div class="contact-wrapper">
+      <div class="contact-form-layout">
       <form
         action="https://formspree.io/f/xjgdrpkr"
         method="POST"
@@ -53,6 +58,16 @@
           Send Message
         </button>
       </form>
+      <aside class="contact-sidekick" aria-label="Psyduck">
+        <span class="contact-sidekick-caption">Need a developer? I might know someone!</span>
+        <img
+          class="contact-mascot"
+          :src="psyduckArtwork"
+          alt="Psyduck looking a little confused"
+          loading="lazy"
+        />
+      </aside>
+      </div>
     </div>
 
     <div class="contact-info-section">
@@ -105,7 +120,7 @@
     <aside class="trainer-contact-card" aria-label="Trainer profile">
       <div class="trainer-contact-ball" aria-hidden="true"></div>
       <div>
-        <span class="trainer-contact-label">TRAINER CARD · NO. 001</span>
+        <span class="trainer-contact-label">TRAINER CARD</span>
         <p>Saajidah Abrahams</p>
         <span class="trainer-contact-role">Junior Web Developer · Cape Town</span>
       </div>

@@ -26,10 +26,6 @@ html {
   scroll-padding-top: 88px;
 }
 
-html.portfolio-loading {
-  overflow: hidden;
-}
-
 body {
   min-width: 320px;
   margin: 0;
@@ -4551,9 +4547,38 @@ body::after {
 }
 
 .contact-sidekick-caption {
+  position: relative;
+  display: inline-block;
   max-width: 112px;
+  padding: 8px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--paper-light);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 0.68rem;
+  font-weight: 600;
   line-height: 1.65;
   text-wrap: balance;
+}
+
+.contact-sidekick-caption::after {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid var(--accent);
+  border-bottom: 1px solid var(--accent);
+  background: var(--paper-light);
+  content: "";
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.contact-mascot {
+  display: block;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.22));
+  animation: contact-mascot-idle 4.2s ease-in-out infinite;
 }
 
 @keyframes contact-sidekick-arrive {
@@ -4597,16 +4622,31 @@ body::after {
   .contact-sidekick {
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     gap: 10px;
     margin-top: 2px;
   }
 
   .contact-mascot {
-    width: 56px;
+    width: 72px;
   }
 
   .contact-sidekick-caption {
     max-width: 108px;
+  }
+}
+
+@media (max-width: 680px) {
+  .contact-sidekick-caption::after {
+    top: 50%;
+    right: -6px;
+    bottom: auto;
+    left: auto;
+    transform: translateY(-50%) rotate(-45deg);
+  }
+
+  .contact-mascot {
+    width: 58px;
   }
 }
 
@@ -4620,6 +4660,24 @@ body::after {
     justify-content: center;
     gap: 10px;
     margin-top: 2px;
+  }
+
+  .contact-sidekick-caption::after {
+    top: 50%;
+    right: -6px;
+    bottom: auto;
+    left: auto;
+    transform: translateY(-50%) rotate(-45deg);
+  }
+
+  .contact-mascot {
+    width: 72px;
+  }
+}
+
+@media (max-width: 680px) {
+  .contact-mascot {
+    width: 58px;
   }
 }
 
@@ -5600,55 +5658,6 @@ body::after {
   min-height: 0;
 }
 
-/* Stagger the existing hero copy without changing its type or layout. */
-html.opening-complete .hero-info > .hero-small-title,
-html.opening-complete .hero-info > h1,
-html.opening-complete .hero-info > .hero-role,
-html.opening-complete .hero-info > .hero-description,
-html.opening-complete .hero-info > .hero-buttons,
-html.opening-complete .hero-info > .hero-footnote {
-  animation: hero-copy-reveal 620ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-
-html.opening-complete .hero-info > .hero-small-title { animation-delay: 80ms; }
-html.opening-complete .hero-info > h1 { animation-delay: 150ms; }
-html.opening-complete .hero-info > .hero-role { animation-delay: 230ms; }
-html.opening-complete .hero-info > .hero-description { animation-delay: 310ms; }
-html.opening-complete .hero-info > .hero-buttons { animation-delay: 390ms; }
-html.opening-complete .hero-info > .hero-footnote { animation-delay: 460ms; }
-
-html.opening-complete .hero-first-name,
-html.opening-complete .hero-last-name {
-  animation: hero-name-mask 760ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-
-html.opening-complete .hero-last-name { animation-delay: 120ms; }
-
-@keyframes hero-copy-reveal {
-  from {
-    opacity: 0;
-    translate: 0 12px;
-  }
-  to {
-    opacity: 1;
-    translate: 0 0;
-  }
-}
-
-@keyframes hero-name-mask {
-  from { clip-path: inset(0 100% 0 0); }
-  to { clip-path: inset(0 0 0 0); }
-}
-
-html:not(.opening-complete) .hero-info,
-html:not(.opening-complete) .hero-image-wrapper,
-html:not(.opening-complete) .hero::before,
-html:not(.opening-complete) .hero::after,
-html:not(.opening-complete) .status-mark,
-html:not(.opening-complete) .portrait-stamp {
-  animation-play-state: paused;
-}
-
 /* Reveal existing content in short, offset groups as each section enters. */
 .reveal-ready .about-section .section-heading,
 .reveal-ready .about-section .about-intro,
@@ -5746,18 +5755,6 @@ html:not(.opening-complete) .portrait-stamp {
 .about-film-still::before { animation-iteration-count: 2; }
 
 @media (prefers-reduced-motion: reduce) {
-  html.opening-complete .hero-info > .hero-small-title,
-  html.opening-complete .hero-info > h1,
-  html.opening-complete .hero-info > .hero-role,
-  html.opening-complete .hero-info > .hero-description,
-  html.opening-complete .hero-info > .hero-buttons,
-  html.opening-complete .hero-info > .hero-footnote,
-  html.opening-complete .hero-first-name,
-  html.opening-complete .hero-last-name {
-    animation: none !important;
-    clip-path: none;
-  }
-
   .reveal-ready .about-section .section-heading,
   .reveal-ready .about-section .about-intro,
   .reveal-ready .about-section .about-content,

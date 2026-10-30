@@ -27,11 +27,11 @@ const journey = [
   <section id="journey" class="journey-section">
 
     <div class="section-heading">
-      <span>04 / JOURNEY</span>
+      <span>TRAINER JOURNEY</span>
 
       <h2>
-        My learning
-        <span>journey</span>
+        Learning and
+        <span>development</span>
       </h2>
     </div>
 

@@ -26,9 +26,8 @@ const highlights = [
 <template>
   <section id="about" class="about-section">
     <header class="about-heading">
-      <span class="section-tag">[ENTRY NO. 001]</span>
-      <h2 class="section-title">Meet the Developer</h2>
-      <p class="about-heading-caption">TRAINER PROFILE // POKÉDEX DATA</p>
+      <span class="section-tag">ABOUT ME</span>
+      <h2 class="section-title">Trainer Profile</h2>
     </header>
 
     <div class="pokedex-container">
@@ -56,7 +55,7 @@ const highlights = [
         </div>
 
         <p class="pikachu-speech-bubble" aria-live="polite">
-          {{ pikachuSaysHi ? "Pika-pika! Let's build something great!" : "Pika-pika! Welcome to my Pokédex!" }}
+          {{ pikachuSaysHi ? "Pika-pika! Let's build something great!" : "Pika-pika! Welcome to my trainer profile!" }}
         </p>
 
         <div class="terminal-screen" aria-label="Trainer metadata">
@@ -68,8 +67,8 @@ const highlights = [
       </aside>
 
       <div class="about-bio-content">
-        <span class="about-bio-eyebrow">TRAINER BIO // NO. 001</span>
-        <h3>Turning Ideas into Structured, Interactive Code.</h3>
+        <span class="about-bio-eyebrow">TRAINER BIO</span>
+        <h3>Building thoughtful experiences for the web.</h3>
         <p>
           I’m a junior web developer trained at <strong>Life Choices Academy</strong>,
           with a foundation in front-end development and back-end logic. I enjoy building
